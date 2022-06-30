@@ -1,0 +1,26 @@
+<Command name="schRTLInfo"  delimiter="."  >
+<RTLBlock >
+<RTLInfo   name="state_0"  type="2"  fileName="../rtl/EdgeDetectorFSM.sv"  >
+    <Seg beginLine="29"  endLine="41"  />
+  </RTLInfo>
+<Instance name="top_testbench.ddr_DUT.DM_inst.EdgeDetectorFSM_inst"  />
+</RTLBlock>
+<RTLBlock >
+<RTLInfo   name="current_state_1"  type="2"  fileName="../rtl/CA_Manager.sv"  >
+    <Seg beginLine="41"  endLine="102"  />
+  </RTLInfo>
+<Instance name="top_testbench.ddr_DUT.top_inst.CA_inst"  />
+</RTLBlock>
+<RTLBlock >
+<RTLInfo   name="state_2"  type="2"  fileName="../rtl/GapCounter.sv"  >
+    <Seg beginLine="39"  endLine="49"  />
+  </RTLInfo>
+<Instance name="top_testbench.ddr_DUT.DM_inst.GC_inst"  />
+</RTLBlock>
+<RTLBlock >
+<RTLInfo   name="state_3"  type="2"  fileName="../rtl/generic_FSM.sv"  >
+    <Seg beginLine="19"  endLine="69"  />
+  </RTLInfo>
+<Instance name="top_testbench.ddr_DUT.DM_inst.PD_inst.generic_FSM_inst"  />
+</RTLBlock>
+</Command>

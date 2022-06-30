@@ -1,0 +1,23 @@
+begin
+	line+cond+tgl+fsm+branch+assert -tree top_testbench 1 
+end
+begin
+	line+cond+tgl+fsm+branch+assert -tree uvm_custom_install_recording
+end
+begin
+	line+cond+tgl+fsm+branch+assert -file ../testbench/interfaces/dfi_intf.sv 
+end
+
+begin
+	line+cond+tgl+fsm+branch+assert -file ../testbench/interfaces/jedec_intf.sv
+end
+begin
+	line+cond+tgl+fsm+branch+assert	-file /home/nano/Synopsys_tools/VCS/VCS/vcs/S-2021.09-SP2-1/etc/uvm-1.2/uvm_pkg.sv
+end
+begin
+	line+cond+tgl+fsm+branch	-file ../testbench/interfaces/ddr_assertions.sv
+end
+
+begin
+	line+cond+tgl+fsm+branch+assert	-file ../rtl/CRC_Valid.sv
+end

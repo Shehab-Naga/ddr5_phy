@@ -1,0 +1,91 @@
+# Makefile for UVM Lab6
+
+LD_LIBRARY_PATH = ${NOVAS_HOME}/share/PLI/VCS/LINUX
+
+test = ubus_example_base_test
+env_path = /u/arwaa/PCIe_Training/makefile/sv
+test_path = /u/arwaa/PCIe_Training/makefile/examples
+rtl_path = /u/arwaa/PCIe_Training/makefile/examples/
+
+PROGRAM_TOP = ${test_path}/ubus_tb_top.sv
+TEST_TOP = ${PROGRAM_TOP}
+TOP = ${TEST_TOP}
+DUT = ${rtl_path}dut_dummy.v
+TESTLIST = ubus_example_base_test test_read_modify_write test_r8_w8_r4_w4 test_2m_4s 
+
+log = simv.log
+uvm_ver = uvm-1.1
+seed = 1
+
+compile_switches = -sverilog -lca -debug_access+all -kdb +vcs+vcdpluson -timescale="1ns/100ps" -l ./scratch/comp.log -ntb_opts ${uvm_ver} +incdir+${env_path}+${test_path} ${TOP}
+runtime_switches = -l ${log} +UVM_TESTNAME=${test}
+
+seq = uvm_reg_bit_bash_seq
+
+##### Required to create a make file which contains the following targets
+########## Target to compile the environment
+compile: ${env_path}/*.sv ${TOP}
+ifeq ($(CES64),TRUE)
+	vcs -full64 ${compile_switches}
+	@echo "Compiled in 64-bit mode"
+else
+	vcs ${compile_switches}
+	@echo "Compiled in 32-bit mode"
+endif
+ 
+########## Target to launch a single test 
+run:
+	simv +ntb_random_seed=${seed} ${runtime_switches} +seq=${seq}
+
+random: simv
+	simv +ntb_random_seed_automatic ${runtime_switches} +seq=${seq}
+
+########## Target to launch all tests 
+run_all:
+	for test in ${TESTLIST} ; do \
+    		simv +ntb_random_seed=${seed} -cm_dir ./scratch/$$test -l ./scratch/$$test/$$test.log +UVM_TESTNAME=$$test +seq=${seq} ; \
+	done
+random_all:
+	for test in ${TESTLIST} ; do \
+    		simv +ntb_random_seed_automatic -cm_dir ./scratch/$$test -l ./scratch/$$test/$$test.log +UVM_TESTNAME=$$test +seq=${seq} ; \
+	done
+
+########## Target to compile and run the simulation
+all: simv run
+
+########## Target to merge coverage database and generate coverage report
+cover:
+	urg -dir ./scratch/*.vdb
+	urg -dir ./scratch/*.vdb -format text
+
+########## Target to clean your workspace before the build 
+clean:
+	rm -rf simv* csrc* *.tmp *.vpd *.key log *.h temp *.log .vcs* *.txt DVE* *.hvp urg* .inter.vpd.uvm .restart* .synopsys* novas.* *.dat *.fsdb verdi* work* vlog*
+
+########## Target for the makefile help
+help:
+	@echo ============================================================================
+	@echo  " 								         "
+	@echo  " USAGE: make target <seed=xxx> <verbosity=YYY> <test=ZZZ>                "
+	@echo  " 								         "
+	@echo  "  xxx is the random seed.  Can be any integer except 0. Defaults to 1    "
+	@echo  "  YYY sets the verbosity filter.  Defaults to UVM_MEDIUM                 "
+	@echo  "  ZZZ selects the uvm test.       Defaults to test_base                  "
+	@echo  " 								         "
+	@echo  " ------------------------- Test TARGETS -------------------------------- "
+	@echo  " all             => Compile TB and DUT files and run the simulation      "
+	@echo  " compile         => Compile TB and DUT files                             "
+	@echo  " run             => Run the simulation with seed                         "
+	@echo  " random          => Run the simulation with random seed                  "
+	@echo  " run_all         => Run the simulation with seed for all the tests       "
+	@echo  " random_all      => Run the simulation with random seed for all the test "
+	@echo  " cover           => Merge coverage database and generate coverage report "
+	@echo  "                                                                         "
+	@echo  " -------------------- ADMINISTRATIVE TARGETS --------------------------- "
+	@echo  " help       => Displays this message                                     "
+	@echo  " clean      => Remove all intermediate simv and log files                "
+	@echo  "								         "
+	@echo  " ---------------------- EMBEDDED SETTINGS ------------------------------ "
+	@echo  " -timescale=\"1ns/100ps\"                                                "
+	@echo  " -debug_all                                                              "
+	@echo ============================================================================  
