@@ -2,7 +2,7 @@
 This repo includes the uvm testbench for DDR5 PHY as part of Graduation project titled "Verification of the Digital Data-Path of DDR5 PHY" in Nanotechnology & Nano-Electronics Engineering program - Zewail City (2021 - 2022) 
 ***************************************************************************
 Files Organization:
-- docs: Verification plan, Waveforms
+- docs: Thesis, Verification plan & Waveforms for illustration
 - rtl: The rtl is not included in this project as it is not part of this work
 - scripts: Shell script for test run automation
 - testbench: UVM tb environment (comps, sequences, tests, interfaces, transactions)
