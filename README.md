@@ -16,5 +16,5 @@ Team:
 [Abdullah Allam](https://www.linkedin.com/in/abdullah-shaaban-154581167/),
 [Shehab Naga](https://www.linkedin.com/in/shehabbahaaengineer/),
 [Mohamed Abdelall](https://www.linkedin.com/in/mohamedabdelall/),
-[John Saber](https://www.linkedin.com/in/john-wafeek-2824a9168/),
+[John Aziz](https://www.linkedin.com/in/john-aziz-2824a9168/),
 [Tarek Abou-Elkheir](https://www.linkedin.com/in/tarek-abdelnasser-b0aa27173/)
